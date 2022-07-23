@@ -1,0 +1,10 @@
+﻿@using WebApplication1.Models.ViewModels
+@model UrlListWithRoleModel
+@{
+}
+@foreach(var item in Model.UrlModels)
+    {
+        <p>@item.LongUrl</p>
+    }
+    <h2>@Model.CurrentRole</h2>
+    
