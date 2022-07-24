@@ -36,7 +36,7 @@ export class AppComponent {
   }
   CreateNewUrl(url: string) {
     for (let i = 0; i < this.listOfUrls.length; i++) {
-      if (this.listOfUrls[i].longUrl == url) {
+      if (this.listOfUrls[i].longUrl == url || this.listOfUrls[i].shortUrl == url) {
         alert('this link already shorted');
         return;
       }
