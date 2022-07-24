@@ -278,3 +278,4 @@ D:\InforceProject\URL-Shortener\WebApplication1\WebApplication1\bin\Debug\net6.0
 D:\InforceProject\URL-Shortener\WebApplication1\WebApplication1\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
 D:\InforceProject\URL-Shortener\WebApplication1\WebApplication1\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 D:\InforceProject\URL-Shortener\WebApplication1\WebApplication1\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+D:\InforceProject\URL-Shortener\WebApplication1\WebApplication1\bin\Debug\net6.0\angularPageUrlTable\package.json

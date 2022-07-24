@@ -23,6 +23,7 @@ JsonSerializerOptions options = new()
     ReferenceHandler = ReferenceHandler.IgnoreCycles,
     WriteIndented = true
 };
+
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
