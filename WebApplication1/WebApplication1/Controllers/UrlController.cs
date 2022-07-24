@@ -6,6 +6,8 @@ using WebApplication1.Models.ViewModels;
 
 namespace WebApplication1.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UrlController : Controller
     {
         private IUrlService _urlService;
@@ -15,11 +17,61 @@ namespace WebApplication1.Controllers
             _urlService = urlService;
             _userService = userService;
         }
-        public async Task<IActionResult> UrlTable()
+
+        [HttpGet("GetUrls/{username}")]
+        public async Task<IActionResult> UrlTable(string username)
         {
-            var role = await _userService.GetRolesByEmail(this.User.Identity.Name);
+            try
+            {
+
+            var role = await _userService.GetRolesByEmail(username);
             var urls = _urlService.GetAllUrls();
-            return View(new UrlListWithRoleModel { UrlModels = urls, CurrentRole = role});
+            return Ok(new UrlListWithRoleModel { UrlModels = urls, CurrentRole = role});
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+        [HttpPost("CreateUrl/{username}/{url}")]
+        public async Task<IActionResult> CreateUrl(string username, string url)
+        {
+            try
+            {
+                await _urlService.AddNewUrl(url, await _userService.GetIdByEmail(username));
+
+
+                var role = await _userService.GetRolesByEmail(username);
+                var urls = _urlService.GetAllUrls();
+                return Ok(new UrlListWithRoleModel { UrlModels = urls, CurrentRole = role });
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+        [HttpDelete("DeleteUrl/{username}/{urlId}")]
+        public async Task<IActionResult> DeleteUrl(string username, int urlId)
+        {
+            try
+            {
+                await _urlService.DeleteUrl(urlId);
+
+
+                var role = await _userService.GetRolesByEmail(username);
+                var urls = _urlService.GetAllUrls();
+                return Ok(new UrlListWithRoleModel { UrlModels = urls, CurrentRole = role });
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
     }
 }

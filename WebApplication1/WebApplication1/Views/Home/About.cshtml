@@ -1,7 +1,19 @@
-﻿@{
+﻿@model WebApplication1.Models.ViewModels.AboutModel;
+@{
     ViewData["Title"] = "About";
 }
 <h1 style="margin:50px">@ViewData["Title"]</h1>
+@if (Model.RoleName == "admin")
+{
+    <form method="post" action="@Url.Action("AboutChange", "Home")">
+         <textarea style="width: 80%; height: 600px;margin: 50px" id="TxtArea"  name="TxtArea">
+            @Model.AboutText
+        </textarea>
+        <input class="btn btn-primary" type="submit" value="Save">
+    </form>
+       
+}else 
+{
+        <p style="font-size: 18pt">@Model.AboutText</p> 
 
-<p style="font-size: 18pt">Firstly I decided that I can find finished APIs which would make me working links but they all paid</p> 
-<p style="font-size: 18pt">Secondly I decided that I can wrote my personal argorithm but now I havent a lot of time for this, so I will do other pages and functionality and if I have time I will do this also.</p> 
+}

@@ -10,14 +10,24 @@ namespace WebApplication1.Services
         {
             _unitOfWork = unitOfWork;
         }
-        public Task AddNewUrl(string fullUrl, int ApplicationUserId)
+        public async Task AddNewUrl(string fullUrl, string ApplicationUserId)
         {
-            throw new NotImplementedException();
+            _unitOfWork.UrlModelRepository.Add(
+                new UrlModel
+                {
+                    ApplicationUserId = ApplicationUserId,
+                    LongUrl = fullUrl,
+                    ShortUrl = fullUrl
+                }
+                );
+            await _unitOfWork.SaveAsync();
+           
         }
 
-        public Task DeleteUrl(string fullUrl)
+        public async Task DeleteUrl(int id)
         {
-            throw new NotImplementedException();
+            _unitOfWork.UrlModelRepository.DeleteById(id);
+            await _unitOfWork.SaveAsync();
         }
 
         public IEnumerable<UrlModel> GetAllUrls()

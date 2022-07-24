@@ -1,0 +1,76 @@
+<style>
+  .styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.styled-table td {
+    padding: 12px 15px;
+}
+.active-row{
+    border-bottom: 2px solid #009879;
+    background-color: #f3f3f3;
+    border-bottom: 1px solid #dddddd;
+    font-weight: bold;
+}
+</style>
+<div *ngIf="role=='admin'">
+  <table class="styled-table">
+    <tr class="active-row">
+      <td>Long URL</td>
+      <td>Short URL</td>
+      <td>Details URL</td>
+      <td>DeleteUrl</td>
+    </tr>
+    <ng-container *ngFor="let item of listOfUrls">
+      <tr >
+        <td>{{item.longUrl}}</td>
+        <td>{{item.shortUrl}}</td>
+        <td><button type="button" (click)="ShowModal(item)">Show Detail</button></td>
+        <td><button type="button" (click)="Delete(item.id)">Delete</button></td>
+      </tr>
+    </ng-container>
+</table>
+</div>
+<div *ngIf="role=='user'">
+  <table class="styled-table">
+    <tr class="active-row">
+      <td>Long URL</td>
+      <td>Short URL</td>
+      <td>Details URL</td>
+      <td>DeleteUrl</td>
+    </tr>
+    <ng-container *ngFor="let item of listOfUrls">
+      <tr>
+        <td>{{item.longUrl}}</td>
+        <td>{{item.shortUrl}}</td>
+        <td><button type="button" (click)="ShowModal(item)">Show Detail</button></td>
+        <td *ngIf="item.applicationUser.userName==name"><button type="button" (click)="Delete(item.id)">Delete</button></td>
+      </tr>
+    </ng-container>
+</table>
+</div>
+<div *ngIf="role=='guest'">
+  <table class="styled-table">
+    <tr class="active-row">
+      <td>Long URL</td>
+      <td>Short URL</td>
+      <td>Details URL</td>
+    </tr>
+    <ng-container *ngFor="let item of listOfUrls">
+      <tr>
+        <td>{{item.longUrl}}</td>
+        <td>{{item.shortUrl}}</td>
+        <td><button type="button" (click)="ShowModal(item)">Show Detail</button></td>
+      </tr>
+    </ng-container>
+</table>
+</div>
+<div *ngIf="role!='guest'">
+  <h2>Create new</h2>
+<input style="width: 50%; margin: 20px" type="text" #newLink>
+<button type="button" (click)="CreateNewUrl(newLink.value)">Create</button>
+</div>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using WebApplication1.Interfaces;
 using WebApplication1.Models.Entities;
+using WebApplication1.Validation;
 
 namespace WebApplication1.Services
 {
@@ -11,6 +12,22 @@ namespace WebApplication1.Services
         {
             _userManager = userManager;
         }
+
+        public async Task<string> GetIdByEmail(string email)
+        {
+            try
+            {
+
+                var user = await _userManager.FindByEmailAsync(email);
+                return user.Id;
+
+            }
+            catch (Exception ex)
+            {
+                throw new UserException(ex.Message);
+            }
+        }
+
         public async Task<string> GetRolesByEmail(string email)
         {
             try

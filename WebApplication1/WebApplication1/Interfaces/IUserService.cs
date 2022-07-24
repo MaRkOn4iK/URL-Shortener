@@ -3,5 +3,6 @@
     public interface IUserService
     {
         Task<string> GetRolesByEmail(string email);
+        Task<string> GetIdByEmail(string email);
     }
 }

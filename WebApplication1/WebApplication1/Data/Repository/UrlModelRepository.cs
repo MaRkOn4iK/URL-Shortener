@@ -35,6 +35,11 @@ namespace WebApplication1.Data.Repository
 
         public IEnumerable<UrlModel> GetAll()
         {
+            var tmp = context.UrlModels;
+            foreach (var item in tmp)
+            {
+                item.ApplicationUser = context.Users.Where(x => x.Id == item.ApplicationUserId).FirstOrDefault();
+            }
             return context.UrlModels;
         }
     }
