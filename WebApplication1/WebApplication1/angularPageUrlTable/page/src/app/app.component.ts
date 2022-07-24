@@ -25,6 +25,7 @@ export class AppComponent {
   {
     this.urlService.GetUrlTable().subscribe({
         next: data => {
+          console.log(data);
             this.role = data.currentRole;
             this.name = localStorage.getItem('UserName');
             this.listOfUrls = data.urlModels;
@@ -41,7 +42,6 @@ export class AppComponent {
     }
     CreateNewUrl(url:string)
     {
-      console.log();
       for(let i=0;i<this.listOfUrls.length;i++)
       {
         if(this.listOfUrls[i].longUrl==url){
@@ -56,6 +56,7 @@ export class AppComponent {
             this.role = data.currentRole;
             this.name = localStorage.getItem('UserName');
             this.listOfUrls = data.urlModels;
+            
         },
         error: error => {
             console.log(error);

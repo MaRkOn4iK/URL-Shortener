@@ -26,9 +26,11 @@ export class UrlServiceService {
     const requestOptions: Object = {
       responseType: 'json',
     };
+    console.log(localStorage.getItem('UserName'));
+    
    return this.http
     .post<any>(
-      `https://localhost:44347/api/Url/CreateUrl/${localStorage.getItem('UserName')}/${url}`,requestOptions
+      `https://localhost:44347/api/Url/CreateUrl/${localStorage.getItem('UserName')}`,{url},requestOptions
     );
   }
 

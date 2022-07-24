@@ -35,12 +35,15 @@ namespace WebApplication1.Controllers
             }
 
         }
-        [HttpPost("CreateUrl/{username}/{url}")]
-        public async Task<IActionResult> CreateUrl(string username, string url)
+
+        [HttpPost("CreateUrl/{username}")]
+        
+        public async Task<IActionResult> CreateUrl(string username, [FromBody]EmptyUrlModel url)
         {
             try
             {
-                await _urlService.AddNewUrl(url, await _userService.GetIdByEmail(username));
+                
+                await _urlService.AddNewUrl(url.url, await _userService.GetIdByEmail(username));
 
 
                 var role = await _userService.GetRolesByEmail(username);
