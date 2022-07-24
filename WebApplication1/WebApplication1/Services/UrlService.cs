@@ -6,11 +6,13 @@ namespace WebApplication1.Services
     public class UrlService : IUrlService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public static readonly string Alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
-        public static readonly int Base = Alphabet.Length;
+        private readonly string _alphabet;
+        private readonly int _base;
         public UrlService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+            _alphabet = "abcdefghijklmnopqrstuvwxyz0123456789";
+            _base = _alphabet.Length;
         }
         public async Task AddNewUrl(string fullUrl, string ApplicationUserId)
         {
@@ -25,27 +27,38 @@ namespace WebApplication1.Services
             await _unitOfWork.SaveAsync();
 
         }
-        private string Decode(int i)
-        {
-            if (i == 0) return Alphabet[0].ToString();
 
-            var s = string.Empty;
+        // This method can decode int value(shortLink) back to string 
+        /*private string Decode(int i)
+        {
+            if (i == 0)
+            {
+                return _alphabet[0].ToString();
+            }
+
+            string? s = string.Empty;
 
             while (i > 0)
             {
-                s += Alphabet[i % Base];
-                i = i / Base;
+                s += _alphabet[i % _base];
+                i /= _base;
             }
 
             return string.Join(string.Empty, s.Reverse());
-        }
+        }*/
+
+        /// <summary>
+        /// This method from internet like a real link shortener alghorithm
+        /// </summary>
+        /// <param name="s">string for encoding</param>
+        /// <returns>encoded int value(shortLink)</returns>
         private int Encode(string s)
         {
-            var i = 0;
+            int i = 0;
 
-            foreach (var c in s)
+            foreach (char c in s)
             {
-                i = (i * Base) + Alphabet.IndexOf(c);
+                i = (i * _base) + _alphabet.IndexOf(c);
             }
 
             return i;

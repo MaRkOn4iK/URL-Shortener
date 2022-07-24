@@ -26,17 +26,17 @@ namespace WebApplication1.Data.Repository
                     _ = context.UrlModels.Remove(tmp);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
 
         }
 
         public IEnumerable<UrlModel> GetAll()
         {
-            var tmp = context.UrlModels;
-            foreach (var item in tmp)
+            Microsoft.EntityFrameworkCore.DbSet<UrlModel>? tmp = context.UrlModels;
+            foreach (UrlModel? item in tmp)
             {
                 item.ApplicationUser = context.Users.Where(x => x.Id == item.ApplicationUserId).FirstOrDefault();
             }

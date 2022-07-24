@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Data;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Interfaces;
 using WebApplication1.Models.ViewModels;
 
@@ -10,8 +8,8 @@ namespace WebApplication1.Controllers
     [ApiController]
     public class UrlController : Controller
     {
-        private IUrlService _urlService;
-        private IUserService _userService;
+        private readonly IUrlService _urlService;
+        private readonly IUserService _userService;
         public UrlController(IUrlService urlService, IUserService userService)
         {
             _urlService = urlService;
@@ -24,9 +22,9 @@ namespace WebApplication1.Controllers
             try
             {
 
-            var role = await _userService.GetRolesByEmail(username);
-            var urls = _urlService.GetAllUrls();
-            return Ok(new UrlListWithRoleModel { UrlModels = urls, CurrentRole = role});
+                string? role = await _userService.GetRolesByEmail(username);
+                IEnumerable<Models.Entities.UrlModel>? urls = _urlService.GetAllUrls();
+                return Ok(new UrlListWithRoleModel { UrlModels = urls, CurrentRole = role });
 
             }
             catch (Exception ex)
@@ -37,17 +35,17 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost("CreateUrl/{username}")]
-        
-        public async Task<IActionResult> CreateUrl(string username, [FromBody]EmptyUrlModel url)
+
+        public async Task<IActionResult> CreateUrl(string username, [FromBody] EmptyUrlModel url)
         {
             try
             {
-                
+
                 await _urlService.AddNewUrl(url.url, await _userService.GetIdByEmail(username));
 
 
-                var role = await _userService.GetRolesByEmail(username);
-                var urls = _urlService.GetAllUrls();
+                string? role = await _userService.GetRolesByEmail(username);
+                IEnumerable<Models.Entities.UrlModel>? urls = _urlService.GetAllUrls();
                 return Ok(new UrlListWithRoleModel { UrlModels = urls, CurrentRole = role });
 
             }
@@ -65,8 +63,8 @@ namespace WebApplication1.Controllers
                 await _urlService.DeleteUrl(urlId);
 
 
-                var role = await _userService.GetRolesByEmail(username);
-                var urls = _urlService.GetAllUrls();
+                string? role = await _userService.GetRolesByEmail(username);
+                IEnumerable<Models.Entities.UrlModel>? urls = _urlService.GetAllUrls();
                 return Ok(new UrlListWithRoleModel { UrlModels = urls, CurrentRole = role });
 
             }

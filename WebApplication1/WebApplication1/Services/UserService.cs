@@ -18,7 +18,7 @@ namespace WebApplication1.Services
             try
             {
 
-                var user = await _userManager.FindByEmailAsync(email);
+                ApplicationUser? user = await _userManager.FindByEmailAsync(email);
                 return user.Id;
 
             }
@@ -33,8 +33,8 @@ namespace WebApplication1.Services
             try
             {
 
-                var user = await _userManager.FindByEmailAsync(email);
-                var role = await _userManager.GetRolesAsync(user);
+                ApplicationUser? user = await _userManager.FindByEmailAsync(email);
+                IList<string>? role = await _userManager.GetRolesAsync(user);
                 return role.FirstOrDefault();
 
             }

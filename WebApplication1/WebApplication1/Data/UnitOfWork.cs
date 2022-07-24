@@ -25,7 +25,7 @@ namespace WebApplication1.Data
 
         public async Task SaveAsync()
         {
-            await _context.SaveChangesAsync();
+            _ = await _context.SaveChangesAsync();
         }
     }
 

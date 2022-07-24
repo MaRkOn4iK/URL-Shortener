@@ -22,12 +22,12 @@ namespace UrlShortnerTester.Helpers
         {
             _ = context.Roles.Add(new IdentityRole("user"));
             _ = context.Roles.Add(new IdentityRole("admin"));
-            context.SaveChanges();
+            _ = context.SaveChanges();
             _ = context.Users.Add(new ApplicationUser
             {
                 Email = "380669978812mark@gmail.com",
                 UserName = "380669978812mark@gmail.com",
-                PasswordHash = "AQAAAAEAACcQAAAAEBdOWtNtMsxHDZYbzUDPxo3ZTyOvoPF2U+FqE4Fn4HqMBs9oh34CoBZ91WSynHWf5g=="  
+                PasswordHash = "AQAAAAEAACcQAAAAEBdOWtNtMsxHDZYbzUDPxo3ZTyOvoPF2U+FqE4Fn4HqMBs9oh34CoBZ91WSynHWf5g=="
             });
             _ = context.Users.Add(new ApplicationUser
             {
@@ -35,20 +35,20 @@ namespace UrlShortnerTester.Helpers
                 UserName = "115223qwe@gmail.com",
                 PasswordHash = "AQAAAAEAACcQAAAAEBdOWtNtMsxHDZYbzUDPxo3ZTyOvoPF2U+FqE4Fn4HqMBs9oh34CoBZ91WSynHWf5g=="
             });
-            context.SaveChanges();
-            context.UrlModels.Add(new UrlModel
+            _ = context.SaveChanges();
+            _ = context.UrlModels.Add(new UrlModel
             {
                 LongUrl = "longUrl",
                 ShortUrl = "shortUrl",
                 ApplicationUserId = context.Users.FirstOrDefault().Id
             });
-            context.UrlModels.Add(new UrlModel
+            _ = context.UrlModels.Add(new UrlModel
             {
                 LongUrl = "longUrl2",
                 ShortUrl = "shortUrl2",
                 ApplicationUserId = context.Users.FirstOrDefault().Id
             });
-            context.SaveChanges();
+            _ = context.SaveChanges();
         }
     }
 }

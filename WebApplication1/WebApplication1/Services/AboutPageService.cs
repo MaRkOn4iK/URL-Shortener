@@ -12,8 +12,10 @@ namespace WebApplication1.Services
 
         public void SetAboutText(string text)
         {
-            if(text != null)    
+            if (text != null)
+            {
                 File.WriteAllText(@"Resources\About.txt", text);
+            }
         }
     }
 }
