@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UrlServiceService } from './services/url-service.service';
 import Swal from 'sweetalert2';
@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 })
 export class AppComponent {
   title = 'page';
+  @ViewChild("newLink") Elem?: ElementRef;
   role = '';
   name: any;
   listOfUrls: any;
@@ -35,6 +36,19 @@ export class AppComponent {
     });
   }
   CreateNewUrl(url: string) {
+
+    try {
+      let tmp = new URL(url);
+    } catch (_) {
+      Swal.fire({
+        title: 'Sorry your link is incorrect',
+      })
+      return;
+    }
+
+
+    if(this.Elem)
+      this.Elem.nativeElement.value = "";
     for (let i = 0; i < this.listOfUrls.length; i++) {
       if (this.listOfUrls[i].longUrl == url || this.listOfUrls[i].shortUrl == url) {
         alert('this link already shorted');
@@ -53,6 +67,7 @@ export class AppComponent {
         console.log(error);
       },
     });
+
   }
   Delete(id: number) {
     this.urlService.DeleteUrl(id).subscribe({

@@ -74,5 +74,26 @@ namespace WebApplication1.Controllers
             }
 
         }
+
+        [HttpGet("Redirect/{shortUrl}")]
+        public async Task<IActionResult> RedirectToLongUrl(string shortUrl)
+        {
+            try
+            {
+                IEnumerable<Models.Entities.UrlModel>? urls = _urlService.GetAllUrls();
+                foreach (var item in urls)
+                {
+                    if (@"https://localhost:44347/api/Url/Redirect/" + shortUrl == item.ShortUrl)
+                    {
+                      return  Redirect(item.LongUrl);
+                    }
+                }
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+        }
     }
 }

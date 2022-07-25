@@ -6,9 +6,13 @@
     font-family: sans-serif;
     min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    max-width: 100%;
   }
   .styled-table td {
     padding: 12px 15px;
+    max-width: 600px;
+    text-align: center;
+    word-break: break-all;
   }
   .active-row {
     border-bottom: 2px solid #009879;
@@ -79,6 +83,6 @@
 </div>
 <div *ngIf="role != 'guest'">
   <h2>Create new</h2>
-  <input style="width: 50%; margin: 20px" type="text" #newLink />
-  <button type="button" (click)="CreateNewUrl(newLink.value)">Create</button>
+  <input style="width: 50%; margin: 20px" type="url" #newLink />
+  <button type="button" (click)="CreateNewUrl(newLink.value)" >Create</button>
 </div>

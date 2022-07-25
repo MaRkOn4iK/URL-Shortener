@@ -21,7 +21,7 @@ namespace WebApplication1.Services
                 {
                     ApplicationUserId = ApplicationUserId,
                     LongUrl = fullUrl,
-                    ShortUrl = Encode(fullUrl).ToString()
+                    ShortUrl = @"https://localhost:44347/api/Url/Redirect/" + Encode(fullUrl).ToString()
                 }
                 );
             await _unitOfWork.SaveAsync();
